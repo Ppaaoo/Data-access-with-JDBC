@@ -1,8 +1,6 @@
-package com.example.dataaccesswithjdbc;
+package com.example.dataaccesswithjdbc.models;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class CustomerDAO {
     private String url = "jdbc:postgresql://127.0.0.1:5432/test";
@@ -25,5 +23,15 @@ public class CustomerDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public String getUrl() {
+        return this.url;
+    }
+    public String getUsername() {
+        return this.username;
+    }
+    public String getPassword() {
+        return this.password;
     }
 }
