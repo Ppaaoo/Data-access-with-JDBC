@@ -16,6 +16,9 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
 	runtimeOnly 'org.postgresql:postgresql'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	//https://mvnrepository.com/artifact/org.postgresql/postgresqls
+	implementation("org.postgresql:postgresql:42.5.4")
+
 }
 
 tasks.named('test') {

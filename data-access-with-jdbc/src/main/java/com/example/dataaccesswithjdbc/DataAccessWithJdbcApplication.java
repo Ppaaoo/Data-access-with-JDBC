@@ -8,6 +8,8 @@ public class DataAccessWithJdbcApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(DataAccessWithJdbcApplication.class, args);
+		CustomerDAO customerDAO = new CustomerDAO();
+		customerDAO.testConnection();
 	}
 
 }
