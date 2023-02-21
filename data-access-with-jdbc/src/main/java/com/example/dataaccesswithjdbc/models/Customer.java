@@ -3,42 +3,8 @@ package com.example.dataaccesswithjdbc.models;
 import java.sql.*;
 
 public class Customer {
-    public int customer_id;
-    public String first_name;
-    public String last_name;
-    public String company;
-    public String address;
-    public String city;
-    public String state;
-    public String country;
-    public String postal_code;
-    public String phone;
-    public String fax;
-    public String email;
-    public int support_rep_id;
 
     public Customer() {
-
-    }
-    public Customer(int customer_id, String first_name, String last_name) {
-        this.customer_id = customer_id;
-        this.first_name = first_name;
-        this.last_name = last_name;
-    }
-    public Customer(int customer_id, String first_name, String last_name, String company, String address, String city, String state, String country, String postal_code, String phone, String fax, String email, int support_rep_id) {
-        this.customer_id = customer_id;
-        this.first_name = first_name;
-        this.last_name = last_name;
-        this.company = company;
-        this.address = address;
-        this.city = city;
-        this.state = state;
-        this.country = country;
-        this.postal_code = postal_code;
-        this.phone = phone;
-        this.fax = fax;
-        this.email = email;
-        this.support_rep_id = support_rep_id;
     }
 
     public void getAllCustomers(String url, String username, String password) {
@@ -107,7 +73,7 @@ public class Customer {
     }
 
     public void getCustomerPage(String url, String username, String password, int limit, int offset) {
-        String sql = "SELECT * FROM customer ORDER BY customer_id LIMIT " + String.valueOf(limit) + " OFFSET " + String.valueOf(offset);
+        String sql = "SELECT * FROM customer ORDER BY customer_id LIMIT " + limit + " OFFSET " + offset;
         try (Connection conn = DriverManager.getConnection(url, username, password)) {
             PreparedStatement statement = conn.prepareStatement(sql);
             ResultSet result = statement.executeQuery();
