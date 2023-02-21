@@ -3,7 +3,7 @@ package com.example.dataaccesswithjdbc.models;
 import java.sql.*;
 
 public class CustomerDAO {
-    private String url = "jdbc:postgresql://127.0.0.1:5432/test";
+    private String url = "jdbc:postgresql://localhost:5432/postgres";
     private String username = "postgres";
     private String password = "postgres";
 
