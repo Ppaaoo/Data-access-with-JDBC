@@ -1,47 +1,23 @@
 package com.example.dataaccesswithjdbc.models;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
 import java.sql.*;
 
+@Component
 public class Customer {
-    public int customer_id;
-    public String first_name;
-    public String last_name;
-    public String company;
-    public String address;
-    public String city;
-    public String state;
-    public String country;
-    public String postal_code;
-    public String phone;
-    public String fax;
-    public String email;
-    public int support_rep_id;
+    @Value("${spring.datasource.url}")
+    private String url;
+    @Value("${spring.datasource.username}")
+    private String username;
+    @Value("${spring.datasource.password}")
+    private String password;
 
     public Customer() {
-
-    }
-    public Customer(int customer_id, String first_name, String last_name) {
-        this.customer_id = customer_id;
-        this.first_name = first_name;
-        this.last_name = last_name;
-    }
-    public Customer(int customer_id, String first_name, String last_name, String company, String address, String city, String state, String country, String postal_code, String phone, String fax, String email, int support_rep_id) {
-        this.customer_id = customer_id;
-        this.first_name = first_name;
-        this.last_name = last_name;
-        this.company = company;
-        this.address = address;
-        this.city = city;
-        this.state = state;
-        this.country = country;
-        this.postal_code = postal_code;
-        this.phone = phone;
-        this.fax = fax;
-        this.email = email;
-        this.support_rep_id = support_rep_id;
     }
 
-    public void getAllCustomers(String url, String username, String password) {
+    public void getAllCustomers() {
         String sql = "SELECT * FROM customer";
         try (Connection conn = DriverManager.getConnection(url, username, password)) {
             PreparedStatement statement = conn.prepareStatement(sql);
@@ -62,7 +38,7 @@ public class Customer {
         }
     }
 
-    public void getSpecificCustomer(String url, String username, String password, int id) {
+    public void getSpecificCustomer(int id) {
         String sql = "SELECT * FROM customer WHERE customer_id = ?";
         try (Connection conn = DriverManager.getConnection(url, username, password)) {
             PreparedStatement statement = conn.prepareStatement(sql);
@@ -84,7 +60,7 @@ public class Customer {
         }
     }
 
-    public void getCustomerByName(String url, String username, String password, String name) {
+    public void getCustomerByName(String name) {
         String sql = "SELECT * FROM customer WHERE first_name = ?";
         try (Connection conn = DriverManager.getConnection(url, username, password)){
             PreparedStatement statement = conn.prepareStatement(sql);
@@ -106,8 +82,8 @@ public class Customer {
         }
     }
 
-    public void getCustomerPage(String url, String username, String password, int limit, int offset) {
-        String sql = "SELECT * FROM customer ORDER BY customer_id LIMIT " + String.valueOf(limit) + " OFFSET " + String.valueOf(offset);
+    public void getCustomerPage(int limit, int offset) {
+        String sql = "SELECT * FROM customer ORDER BY customer_id LIMIT " + limit + " OFFSET " + offset;
         try (Connection conn = DriverManager.getConnection(url, username, password)) {
             PreparedStatement statement = conn.prepareStatement(sql);
             ResultSet result = statement.executeQuery();
@@ -127,7 +103,7 @@ public class Customer {
         }
     }
 
-    public void addCustomer(String url, String username, String password, String first_name, String last_name, String country, String postal_code, String phone, String email) {
+    public void addCustomer(String first_name, String last_name, String country, String postal_code, String phone, String email) {
         String sql = "INSERT INTO customer(first_name, last_name, country, postal_code, phone, email) VALUES(" + "'" + first_name + "'," + "'" + last_name + "'," + "'" + country + "'," + "'" + postal_code + "'," + "'" + phone + "'," + "'" + email + "')";
         try (Connection conn = DriverManager.getConnection(url, username, password)) {
             Statement statement = conn.createStatement();
@@ -140,7 +116,16 @@ public class Customer {
         }
     }
 
-    public void updateCustomerById(String url, String username, String password, int id) {
+    public void updateCustomerById(int id, String whatToUpdate, String updateTo) {
+        String sql = "UPDATE customer SET " + whatToUpdate + "='" + updateTo + "' WHERE customer_id=" + id + "";
+        try (Connection conn = DriverManager.getConnection(url, username, password)) {
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.execute();
 
+            System.out.println("Updated entry");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
