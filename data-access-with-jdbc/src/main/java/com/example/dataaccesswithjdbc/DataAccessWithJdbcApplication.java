@@ -1,9 +1,6 @@
 package com.example.dataaccesswithjdbc;
 
-import com.example.dataaccesswithjdbc.models.Customer;
-import com.example.dataaccesswithjdbc.models.CustomerCountry;
-import com.example.dataaccesswithjdbc.models.CustomerDAO;
-import com.example.dataaccesswithjdbc.models.CustomerSpender;
+import com.example.dataaccesswithjdbc.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -20,6 +17,8 @@ public class DataAccessWithJdbcApplication implements ApplicationRunner {
 	CustomerCountry customerCountry;
 	@Autowired
 	CustomerSpender customerSpender;
+	@Autowired
+	CustomerGenre customerGenre;
 	public static void main(String[] args) {
 		SpringApplication.run(DataAccessWithJdbcApplication.class, args);
 	}
@@ -27,12 +26,15 @@ public class DataAccessWithJdbcApplication implements ApplicationRunner {
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
 		customerDAO.testConnection();
+		//Commented out test functions if you want to try them out, feel free to change the parameters as see fit
 		//customer.getAllCustomers();
 		//customer.getSpecificCustomer(58);
 		//customer.getCustomerByName("Mark");
 		//customer.addCustomer("Paulina", "Bonnevier", "Sweden", "37130", "+46 702000924", "paulina.bonnevier1@gmail.com");
 		//customerSpender.getHighestSpender();
-		customer.getCustomerPage(5, 2);
-		customerCountry.getCustomerCountries();
+		//System.out.println(customerCountry.getCustomerCountries());
+		//customer.updateCustomerById(5, "first_name", "June");
+		//customer.getCustomerPage(5, 2);
+		//System.out.println(customerGenre.getCustomerFavouriteGenre(2));
 	}
 }

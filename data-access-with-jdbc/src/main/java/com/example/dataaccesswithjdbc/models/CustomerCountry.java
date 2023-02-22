@@ -18,8 +18,9 @@ public class CustomerCountry {
     HashMap<String, Integer> countryMap = new HashMap<>();
     int count = 1;
     int currentHighest = 0;
+    String finalCountry = "";
 
-    public void getCustomerCountries() {
+    public String getCustomerCountries() {
         String sql = "SELECT * FROM customer ORDER BY country";
         try (Connection conn = DriverManager.getConnection(url, username, password)) {
             PreparedStatement statement = conn.prepareStatement(sql);
@@ -31,11 +32,12 @@ public class CustomerCountry {
             for (Map.Entry<String, Integer> entry: countryMap.entrySet()) {
                 if(entry.getValue() > currentHighest) {
                     currentHighest = entry.getValue();
-                    System.out.println("The country with the most customers is: " + entry.getKey());
+                    finalCountry = entry.getKey();
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return "The country with the most customers is: " + finalCountry;
     }
 }

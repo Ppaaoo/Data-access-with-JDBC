@@ -1,6 +1,5 @@
 package com.example.dataaccesswithjdbc.models;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -118,9 +117,12 @@ public class Customer {
     }
 
     public void updateCustomerById(int id, String whatToUpdate, String updateTo) {
-        String sql = "SELECT * FROM customer WHERE " + whatToUpdate + " = ?";
+        String sql = "UPDATE customer SET " + whatToUpdate + "='" + updateTo + "' WHERE customer_id=" + id + "";
         try (Connection conn = DriverManager.getConnection(url, username, password)) {
-            Statement statement = conn.createStatement();
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.execute();
+
+            System.out.println("Updated entry");
 
         } catch (SQLException e) {
             e.printStackTrace();
