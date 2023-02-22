@@ -1,17 +1,25 @@
 package com.example.dataaccesswithjdbc.models;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
 
+@Component
 public class CustomerSpender {
-
-    //Customer who is the highest spender (total in invoice table is the largest
+    @Value("${spring.datasource.url}")
+    private String url;
+    @Value("${spring.datasource.username}")
+    private String username;
+    @Value("${spring.datasource.password}")
+    private String password;
     HashMap<Integer, Double> customerInvoiceMap = new HashMap<>();
     int currentHighestID;
     double currentHighestTotal;
 
-    public void getHighestSpender(String url, String username, String password) {
+    public void getHighestSpender() {
         String sql = "SELECT * FROM invoice ORDER BY customer_id";
         try (Connection conn = DriverManager.getConnection(url, username, password)) {
             PreparedStatement statement = conn.prepareStatement(sql);
@@ -28,12 +36,12 @@ public class CustomerSpender {
                     System.out.println("Current id: " + currentHighestID);
                 }
             }
-            getHighestSpenderFromId(url, username, password, currentHighestID);
+            getHighestSpenderFromId(currentHighestID);
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-    public void getHighestSpenderFromId(String url, String username, String password, int id) {
+    public void getHighestSpenderFromId(int id) {
         String sql = "SELECT * FROM customer WHERE customer_id = ?";
         try (Connection conn = DriverManager.getConnection(url, username, password)) {
             PreparedStatement statement = conn.prepareStatement(sql);
