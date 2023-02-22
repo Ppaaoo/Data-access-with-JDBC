@@ -14,12 +14,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class DataAccessWithJdbcApplication implements ApplicationRunner {
 	@Autowired
 	CustomerDAO customerDAO;
-	/*@Autowired
+	@Autowired
 	Customer customer;
 	@Autowired
 	CustomerCountry customerCountry;
 	@Autowired
-	CustomerSpender customerSpender;*/
+	CustomerSpender customerSpender;
 	public static void main(String[] args) {
 		SpringApplication.run(DataAccessWithJdbcApplication.class, args);
 	}
@@ -32,7 +32,7 @@ public class DataAccessWithJdbcApplication implements ApplicationRunner {
 		//customer.getCustomerByName("Mark");
 		//customer.addCustomer("Paulina", "Bonnevier", "Sweden", "37130", "+46 702000924", "paulina.bonnevier1@gmail.com");
 		//customerSpender.getHighestSpender();
-		//customer.getCustomerPage(5, 2);
-		//customerCountry.getCustomerCountries();
+		customer.getCustomerPage(5, 2);
+		customerCountry.getCustomerCountries();
 	}
 }
